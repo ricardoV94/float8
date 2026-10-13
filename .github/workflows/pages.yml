@@ -1,11 +1,10 @@
-name: Publish float8 trainer
+name: Publish float8
 
 on:
   push:
     branches: [main]
     paths:
       - index.html
-      - app.html
       - manifest.webmanifest
       - sw.js
       - icon-192.png
@@ -35,7 +34,7 @@ jobs:
       - name: Prepare site
         run: |
           mkdir _site
-          cp index.html app.html manifest.webmanifest sw.js icon-192.png icon-512.png _site/
+          cp index.html manifest.webmanifest sw.js icon-192.png icon-512.png _site/
       - uses: actions/upload-pages-artifact@v4
         with:
           path: _site

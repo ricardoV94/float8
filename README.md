@@ -1,9 +1,9 @@
-# float8 trainer
+# float8
 
 An interactive browser app for learning floating-point representation with float8
 (E4M3): explore the bits, practice encoding numbers, and try random or timed exercises.
 
-Open `app.html` in a browser, or serve this directory locally:
+Open `index.html` in a browser, or serve this directory locally:
 
 ```sh
 python3 -m http.server 8000

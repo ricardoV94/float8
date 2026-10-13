@@ -1,8 +1,8 @@
 {
-  "name": "float8 trainer",
+  "name": "float8",
   "short_name": "float8",
   "description": "Learn floating-point by hand-encoding float8 (E4M3) numbers",
-  "start_url": "./app.html",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",

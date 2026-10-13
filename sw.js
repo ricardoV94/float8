@@ -1,7 +1,7 @@
-// float8 trainer — offline cache, stale-while-revalidate.
+// float8 — offline cache, stale-while-revalidate.
 // Bump the version to force clients onto a fresh cache after a deploy.
-const CACHE = "f8-v2";
-const ASSETS = ["./", "./index.html", "./app.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png"];
+const CACHE = "f8-v3";
+const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png"];
 
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
@@ -19,6 +19,11 @@ self.addEventListener("activate", e => {
 // background — updates land on the next visit
 self.addEventListener("fetch", e => {
   if (e.request.method !== "GET" || new URL(e.request.url).origin !== location.origin) return;
+  // Previously installed apps may still launch the old entry point.
+  if (e.request.mode === "navigate" && new URL(e.request.url).pathname === new URL("./app.html", self.location.href).pathname) {
+    e.respondWith(Response.redirect(new URL("./", self.location.href).href));
+    return;
+  }
   e.respondWith(
     caches.open(CACHE).then(async cache => {
       const cached = await cache.match(e.request);
